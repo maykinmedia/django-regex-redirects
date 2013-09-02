@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from django.contrib.redirects.models import Redirect
+from .models import Redirect
 
 from .actions import export_as_csv_action
 

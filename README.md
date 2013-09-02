@@ -36,5 +36,8 @@ MIDDLEWARE_CLASSES = [
 ]
 ```
 
+Run manage.py syncdb and you're good to go!
+
+
 
 
