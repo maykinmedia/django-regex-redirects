@@ -1,10 +1,8 @@
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import six
 
-from .middleware import RedirectFallbackMiddleware
 from .models import Redirect
 
 
@@ -66,7 +64,7 @@ class RedirectTests(TestCase):
         Redirect.objects.create(
             old_path='/project/foo',
             new_path='/my/project/foo')
-        
+
         Redirect.objects.create(
             old_path='/project/foo/(.*)',
             new_path='/my/project/foo/$1',

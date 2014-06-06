@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import python_2_unicode_compatible
+
 
 class Redirect(models.Model):
     old_path = models.CharField(_('redirect from'), max_length=200, db_index=True, unique=True,

@@ -1,10 +1,10 @@
-
 from django.contrib import admin
 from .models import Redirect
 
 from .actions import export_as_csv_action
 
 FIELD_LIST = ('old_path', 'new_path', 'regular_expression', 'fallback_redirect', 'nr_times_visited')
+
 
 class RedirectAdmin(admin.ModelAdmin):
     list_display = FIELD_LIST
