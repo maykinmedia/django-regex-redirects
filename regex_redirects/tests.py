@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.conf import global_settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import six
@@ -8,7 +8,7 @@ from .models import Redirect
 
 @override_settings(
     APPEND_SLASH=False,
-    MIDDLEWARE_CLASSES=list(settings.MIDDLEWARE_CLASSES) +
+    MIDDLEWARE_CLASSES=list(global_settings.MIDDLEWARE_CLASSES) +
         ['regex_redirects.middleware.RedirectFallbackMiddleware'],
     SITE_ID=1,
 )
