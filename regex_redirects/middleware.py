@@ -10,7 +10,7 @@ import re
 
 """
 A modified version of django.contrib.redirects, this app allows
-us to optionally redirect users using regular expressions. 
+us to optionally redirect users using regular expressions.
 
 It is based on: http://djangosnippets.org/snippets/2784/
 """
@@ -28,13 +28,12 @@ class RedirectFallbackMiddleware(object):
             return response # No need to check for a redirect for non-404 responses.
 
         full_path = request.get_full_path()
-        current_site = get_current_site(request)
         http_host = request.META.get('HTTP_HOST', '')
         if http_host:
             if request.is_secure():
                 http_host = 'https://' + http_host
             else:
-                http_host = 'http://' + http_host 
+                http_host = 'http://' + http_host
 
         redirects = Redirect.objects.all().order_by('fallback_redirect')
         for redirect in redirects:
@@ -62,9 +61,9 @@ class RedirectFallbackMiddleware(object):
             except re.error:
                 # old_path does not compile into regex, ignore it and move on to the next one
                 continue
-                
+
             if re.match(redirect.old_path, full_path):
-                # Convert $1 into \1 (otherwise users would have to enter \1 via the admin 
+                # Convert $1 into \1 (otherwise users would have to enter \1 via the admin
                 # which would have to be escaped)
                 new_path = redirect.new_path.replace('$', '\\')
                 replaced_path = re.sub(old_path, new_path, full_path)

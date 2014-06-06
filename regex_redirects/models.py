@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import python_2_unicode_compatible
+
 
 class Redirect(models.Model):
     old_path = models.CharField(_('redirect from'), max_length=200, db_index=True, unique=True,
@@ -21,7 +21,6 @@ class Redirect(models.Model):
     class Meta:
         verbose_name = _('redirect')
         verbose_name_plural = _('redirects')
-        db_table = 'django_redirect'
         ordering = ('fallback_redirect', 'regular_expression', 'old_path',)
 
     def __str__(self):
