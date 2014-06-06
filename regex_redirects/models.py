@@ -21,7 +21,6 @@ class Redirect(models.Model):
     class Meta:
         verbose_name = _('redirect')
         verbose_name_plural = _('redirects')
-        db_table = 'django_redirect'
         ordering = ('fallback_redirect', 'regular_expression', 'old_path',)
 
     def __str__(self):
