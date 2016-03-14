@@ -36,7 +36,7 @@ MIDDLEWARE_CLASSES = [
 ]
 ```
 
-Run manage.py syncdb and you're good to go!
+Run manage.py migrate and you're good to go!
 
 
 
