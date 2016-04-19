@@ -12,7 +12,7 @@ from .models import Redirect
         ['regex_redirects.middleware.RedirectFallbackMiddleware'],
     SITE_ID=1,
 )
-class RedirectTests(TestCase):
+class RegexRedirectTests(TestCase):
 
     def setUp(self):
         pass
