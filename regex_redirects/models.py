@@ -6,7 +6,6 @@ class Redirect(models.Model):
     old_path = models.CharField(_('redirect from'),
                                 max_length=2000,
                                 db_index=True,
-                                unique=True,
                                 help_text=_("This should be an absolute path, excluding the domain name. Example: '/events/search/'."))
     new_path = models.CharField(_('redirect to'),
                                 max_length=2000,
