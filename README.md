@@ -1,4 +1,4 @@
-django-regex-redirects
+django-regex-redirects [![Build Status](https://travis-ci.org/maykinmedia/django-regex-redirects.svg?branch=master)](https://travis-ci.org/maykinmedia/django-regex-redirects)
 ======================
 
 Django redirects, with regular expressions. It is a modified version of django.contrib.redirects.
