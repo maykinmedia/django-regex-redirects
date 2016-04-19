@@ -1,0 +1,19 @@
+
+language: python
+sudo: false
+
+install:
+  - pip install coverage coveralls tox
+script:
+  - tox
+after_success:
+  - coveralls
+
+env:
+  - TOXENV=py27-django18
+  - TOXENV=py27-django19
+  - TOXENV=py27-djangolatest
+
+  - TOXENV=py35-django18
+  - TOXENV=py35-django19
+  - TOXENV=py35-djangolatest
