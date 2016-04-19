@@ -1,11 +1,13 @@
 from __future__ import unicode_literals
 
-from django.conf import settings
-from .models import Redirect
-from django.core.exceptions import ImproperlyConfigured
-from django import http
-
 import re
+
+from django import http
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+
+from .models import Redirect
+
 
 """
 A modified version of django.contrib.redirects, this app allows
@@ -13,6 +15,7 @@ us to optionally redirect users using regular expressions.
 
 It is based on: http://djangosnippets.org/snippets/2784/
 """
+
 
 class RedirectFallbackMiddleware(object):
     def __init__(self):
@@ -24,7 +27,7 @@ class RedirectFallbackMiddleware(object):
 
     def process_response(self, request, response):
         if response.status_code != 404:
-            return response # No need to check for a redirect for non-404 responses.
+            return response  # No need to check for a redirect for non-404 responses.
 
         full_path = request.get_full_path()
         http_host = request.META.get('HTTP_HOST', '')

@@ -1,7 +1,9 @@
+from __future__ import unicode_literals
+
 from django.contrib import admin
-from .models import Redirect
 
 from .actions import export_as_csv_action
+from .models import Redirect
 
 FIELD_LIST = ('old_path', 'new_path', 'regular_expression', 'fallback_redirect', 'nr_times_visited')
 

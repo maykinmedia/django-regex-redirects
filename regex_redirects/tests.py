@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.conf import global_settings
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -12,7 +14,7 @@ from .models import Redirect
         ['regex_redirects.middleware.RedirectFallbackMiddleware'],
     SITE_ID=1,
 )
-class RedirectTests(TestCase):
+class RegexRedirectTests(TestCase):
 
     def setUp(self):
         pass
