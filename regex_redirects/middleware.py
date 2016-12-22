@@ -43,7 +43,10 @@ class RedirectFallbackMiddleware(object):
             if redirect.old_path == full_path:
                 redirect.nr_times_visited += 1
                 redirect.save()
-                return http.HttpResponsePermanentRedirect(http_host + redirect.new_path)
+                if redirect.new_path.startswith('http'):
+                    return http.HttpResponsePermanentRedirect(redirect.new_path)
+                else:
+                    return http.HttpResponsePermanentRedirect(http_host + redirect.new_path)
 
             if settings.APPEND_SLASH and not request.path.endswith('/'):
                 # Try appending a trailing slash.
@@ -53,7 +56,10 @@ class RedirectFallbackMiddleware(object):
                 if redirect.old_path == slashed_full_path:
                     redirect.nr_times_visited += 1
                     redirect.save()
-                    return http.HttpResponsePermanentRedirect(http_host + redirect.new_path)
+                    if redirect.new_path.startswith('http'):
+                        return http.HttpResponsePermanentRedirect(redirect.new_path)
+                    else:
+                        return http.HttpResponsePermanentRedirect(http_host + redirect.new_path)
 
         # Attempt all regular expression redirects
         reg_redirects = Redirect.objects.filter(regular_expression=True).order_by('fallback_redirect')
@@ -71,7 +77,10 @@ class RedirectFallbackMiddleware(object):
                 replaced_path = re.sub(old_path, new_path, full_path)
                 redirect.nr_times_visited += 1
                 redirect.save()
-                return http.HttpResponsePermanentRedirect(http_host + replaced_path)
+                if redirect.new_path.startswith('http'):
+                    return http.HttpResponsePermanentRedirect(redirect.new_path)
+                else:
+                    return http.HttpResponsePermanentRedirect(http_host + replaced_path)
 
         # No redirect was found. Return the response.
         return response
