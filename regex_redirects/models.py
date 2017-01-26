@@ -28,6 +28,7 @@ class Redirect(models.Model):
         verbose_name = _('redirect')
         verbose_name_plural = _('redirects')
         ordering = ('fallback_redirect', 'regular_expression', 'old_path',)
+        unique_together = ('old_path', 'new_path', 'fallback_redirect')
 
     def __str__(self):
         return "%s ---> %s" % (self.old_path, self.new_path)
