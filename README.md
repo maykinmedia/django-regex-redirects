@@ -10,12 +10,13 @@ Features
  * Configurable via the admin
  * Counts the number of visitors
  * Redirects are exportable as .csv
-
+ 
+https://pypi.python.org/pypi/django-regex-redirects
 
 Install
 =======
 
-```python setup.py install```
+```pip install django-regex-redirects``` or ```python setup.py install```
 
 Add regex_redirects to your INSTALLED_APPS:
 
