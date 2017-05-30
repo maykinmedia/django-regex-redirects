@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from unittest.case import skipUnless
+
 from django.conf import global_settings
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -9,10 +11,8 @@ from .models import Redirect
 
 
 @override_settings(
-    APPEND_SLASH=False,
     MIDDLEWARE_CLASSES=list(global_settings.MIDDLEWARE_CLASSES) +
         ['regex_redirects.middleware.RedirectFallbackMiddleware'],
-    SITE_ID=1,
 )
 class RegexRedirectTests(TestCase):
 
@@ -111,3 +111,13 @@ class RegexRedirectTests(TestCase):
         self.assertRedirects(response,
                              '/my/project/foo/details',
                              status_code=301, target_status_code=404)
+
+
+@skipUnless(hasattr(global_settings, 'MIDDLEWARE'), 'New style middlewhere not available.')
+# Using global_settings.MIDDLEWARE_CLASSES for the list of middleware because it's available from 1.8 - 1.11.
+@override_settings(
+    MIDDLEWARE=list(global_settings.MIDDLEWARE_CLASSES) +
+        ['regex_redirects.middleware.RedirectFallbackMiddleware'],
+)
+class NewStyleMiddlewareRegexRedirectTests(RegexRedirectTests):
+    pass

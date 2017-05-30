@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = djchoices
+source = regex_redirects
 
 [report]
 omit = */tests/*
