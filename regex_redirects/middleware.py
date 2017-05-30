@@ -8,6 +8,12 @@ from django.core.exceptions import ImproperlyConfigured
 
 from .models import Redirect
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object  # fallback for Django < 1.10
+
+
 
 """
 A modified version of django.contrib.redirects, this app allows
@@ -17,13 +23,14 @@ It is based on: http://djangosnippets.org/snippets/2784/
 """
 
 
-class RedirectFallbackMiddleware(object):
-    def __init__(self):
+class RedirectFallbackMiddleware(MiddlewareMixin):
+    def __init__(self, *args, **kwargs):
         if 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise ImproperlyConfigured(
                 "You cannot use RedirectFallbackMiddleware when "
                 "django.contrib.sites is not installed."
             )
+        super(RedirectFallbackMiddleware, self).__init__(*args, **kwargs)
 
     def process_response(self, request, response):
         if response.status_code != 404:
