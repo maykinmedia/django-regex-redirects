@@ -7,6 +7,8 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = ['example.com',]
+
 INSTALLED_APPS = [
     'django.contrib.sites',
     'regex_redirects',
