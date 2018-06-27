@@ -85,7 +85,7 @@ class RedirectFallbackMiddleware(MiddlewareMixin):
                 redirect.nr_times_visited += 1
                 redirect.save()
                 if redirect.new_path.startswith('http'):
-                    return http.HttpResponsePermanentRedirect(redirect.new_path)
+                    return http.HttpResponsePermanentRedirect(replaced_path)
                 else:
                     return http.HttpResponsePermanentRedirect(http_host + replaced_path)
 

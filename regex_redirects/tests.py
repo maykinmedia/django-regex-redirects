@@ -87,6 +87,11 @@ class RegexRedirectTests(TestCase):
             old_path='/project/bar',
             new_path='/my/project/bar')
 
+        Redirect.objects.create(
+            old_path='/project/foobar/(.*)',
+            new_path='http://example.com/my/project/bar/$1',
+            regular_expression=True)
+
         response = self.client.get('/project/foo')
         self.assertRedirects(response,
                              '/my/project/foo',
@@ -112,6 +117,10 @@ class RegexRedirectTests(TestCase):
                              '/my/project/foo/details',
                              status_code=301, target_status_code=404)
 
+        response = self.client.get('/project/foobar/details')
+        self.assertRedirects(response,
+                             'http://example.com/my/project/foo/details',
+                             status_code=301, target_status_code=404)
 
 @skipUnless(hasattr(global_settings, 'MIDDLEWARE'), 'New style middlewhere not available.')
 # Using global_settings.MIDDLEWARE_CLASSES for the list of middleware because it's available from 1.8 - 1.11.
