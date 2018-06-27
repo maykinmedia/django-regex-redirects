@@ -88,8 +88,13 @@ class RegexRedirectTests(TestCase):
             new_path='/my/project/bar')
 
         Redirect.objects.create(
-            old_path='/project/foobar/(.*)',
-            new_path='http://example.com/my/project/bar/$1',
+            old_path='/second_project/.*',
+            new_path='http://example.com/my/second_project/bar/',
+            regular_expression=True)
+        
+        Redirect.objects.create(
+            old_path='/third_project/(.*)',
+            new_path='http://example.com/my/third_project/bar/$1',
             regular_expression=True)
 
         response = self.client.get('/project/foo')
@@ -117,9 +122,14 @@ class RegexRedirectTests(TestCase):
                              '/my/project/foo/details',
                              status_code=301, target_status_code=404)
 
-        response = self.client.get('/project/foobar/details')
+        response = self.client.get('/second_project/details')
         self.assertRedirects(response,
-                             'http://example.com/my/project/foo/details',
+                             'http://example.com/my/second_project/bar/',
+                             status_code=301, target_status_code=404)
+
+        response = self.client.get('/third_project/details')
+        self.assertRedirects(response,
+                             'http://example.com/my/third_project/bar/details',
                              status_code=301, target_status_code=404)
 
 @skipUnless(hasattr(global_settings, 'MIDDLEWARE'), 'New style middlewhere not available.')
