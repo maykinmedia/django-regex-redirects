@@ -1,4 +1,3 @@
-from django.conf import global_settings
 
 DATABASES = {
     'default': {
@@ -18,9 +17,7 @@ SECRET_KEY = "notimportant"
 
 APPEND_SLASH = False
 
-# Using MIDDLEWARE_CLASSES
-# MIDDLEWARE_CLASSES = list(global_settings.MIDDLEWARE_CLASSES) + \
-#                      ['regex_redirects.middleware.RedirectFallbackMiddleware']
+MIDDLEWARE = ['regex_redirects.middleware.RedirectFallbackMiddleware']
 
 SITE_ID = 1
 

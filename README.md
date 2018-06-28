@@ -8,7 +8,6 @@ Features
 
  * Redirect your visitors using regular expressions
  * Configurable via the admin
- * Counts the number of visitors
  * Redirects are exportable as .csv
  
 https://pypi.python.org/pypi/django-regex-redirects
@@ -28,10 +27,10 @@ INSTALLED_APPS = (
 )
 ```
 
-Add the middleware to your MIDDLEWARE_CLASSES:
+Add the middleware to your MIDDLEWARE:
 
 ```
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
   'regex_redirects.middleware.RedirectFallbackMiddleware'
   ...
 ]

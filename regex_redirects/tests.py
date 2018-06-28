@@ -2,22 +2,21 @@ from __future__ import unicode_literals
 
 from unittest.case import skipUnless
 
-from django.conf import global_settings
+from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import six
+from django.core.cache import cache
 
 from .models import Redirect
+from .middleware import DJANGO_REGEX_REDIRECTS_CACHE_KEY, DJANGO_REGEX_REDIRECTS_CACHE_REGEX_KEY
 
 
-@override_settings(
-    MIDDLEWARE_CLASSES=list(global_settings.MIDDLEWARE_CLASSES) +
-        ['regex_redirects.middleware.RedirectFallbackMiddleware'],
-)
 class RegexRedirectTests(TestCase):
 
     def setUp(self):
-        pass
+        cache.delete(DJANGO_REGEX_REDIRECTS_CACHE_KEY)
+        cache.delete(DJANGO_REGEX_REDIRECTS_CACHE_REGEX_KEY)
 
     def test_model(self):
         r1 = Redirect.objects.create(
@@ -57,7 +56,6 @@ class RegexRedirectTests(TestCase):
                              '/my/news/foobar/',
                              status_code=301, target_status_code=404)
         redirect = Redirect.objects.get(regular_expression=True)
-        self.assertEqual(redirect.nr_times_visited, 1)
 
     def test_fallback_redirects(self):
         """
@@ -131,12 +129,3 @@ class RegexRedirectTests(TestCase):
         self.assertRedirects(response,
                              'http://example.com/my/third_project/bar/details',
                              status_code=301, target_status_code=404)
-
-@skipUnless(hasattr(global_settings, 'MIDDLEWARE'), 'New style middlewhere not available.')
-# Using global_settings.MIDDLEWARE_CLASSES for the list of middleware because it's available from 1.8 - 1.11.
-@override_settings(
-    MIDDLEWARE=list(global_settings.MIDDLEWARE_CLASSES) +
-        ['regex_redirects.middleware.RedirectFallbackMiddleware'],
-)
-class NewStyleMiddlewareRegexRedirectTests(RegexRedirectTests):
-    pass
