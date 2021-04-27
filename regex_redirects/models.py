@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Redirect(models.Model):
     old_path = models.CharField(_('redirect from'),
-                                max_length=2000,
+                                max_length=512,
                                 db_index=True,
                                 help_text=_("This should be an absolute path, excluding the domain name. Example: '/events/search/'."))
     new_path = models.CharField(_('redirect to'),
