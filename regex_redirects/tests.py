@@ -24,19 +24,25 @@ class RegexRedirectTests(TestCase):
         self.assertEqual(six.text_type(r1), "/initial ---> /new_target")
 
     def test_redirect(self):
-        Redirect.objects.create(
+        redirect = Redirect.objects.create(
             old_path='/initial', new_path='/new_target')
+        self.assertEqual(redirect.nr_times_visited, 0)
         response = self.client.get('/initial')
         self.assertRedirects(response,
             '/new_target', status_code=301, target_status_code=404)
+        redirect.refresh_from_db()
+        self.assertEqual(redirect.nr_times_visited, 1)
 
     @override_settings(APPEND_SLASH=True)
     def test_redirect_with_append_slash(self):
-        Redirect.objects.create(
+        redirect = Redirect.objects.create(
             old_path='/initial/', new_path='/new_target/')
+        self.assertEqual(redirect.nr_times_visited, 0)
         response = self.client.get('/initial')
         self.assertRedirects(response,
             '/new_target/', status_code=301, target_status_code=404)
+        redirect.refresh_from_db()
+        self.assertEqual(redirect.nr_times_visited, 1)
 
     @override_settings(APPEND_SLASH=True)
     def test_redirect_with_append_slash_and_query_string(self):
@@ -47,7 +53,7 @@ class RegexRedirectTests(TestCase):
             '/new_target/', status_code=301, target_status_code=404)
 
     def test_regular_expression(self):
-        Redirect.objects.create(
+        redirect = Redirect.objects.create(
             old_path='/news/index/(\d+)/(.*)/',
             new_path='/my/news/$2/',
             regular_expression=True)
@@ -56,6 +62,8 @@ class RegexRedirectTests(TestCase):
                              '/my/news/foobar/',
                              status_code=301, target_status_code=404)
         redirect = Redirect.objects.get(regular_expression=True)
+        redirect.refresh_from_db()
+        self.assertEqual(redirect.nr_times_visited, 1)
 
     def test_fallback_redirects(self):
         """

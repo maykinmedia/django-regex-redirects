@@ -35,6 +35,11 @@ class RedirectFallbackMiddleware(MiddlewareMixin):
             )
         super(RedirectFallbackMiddleware, self).__init__(*args, **kwargs)
 
+    def increment_redirect(self, pk):
+        redirect = Redirect.objects.get(pk=pk)
+        redirect.nr_times_visited += 1
+        redirect.save()
+
     def process_response(self, request, response):
         if response.status_code != 404:
             return response  # No need to check for a redirect for non-404 responses.
@@ -55,6 +60,7 @@ class RedirectFallbackMiddleware(MiddlewareMixin):
         for redirect in redirects:
             # Attempt a regular match
             if redirect['old_path'] == full_path:
+                self.increment_redirect(redirect['id'])
                 if redirect['new_path'].startswith('http'):
                     return http.HttpResponsePermanentRedirect(redirect['new_path'])
                 else:
@@ -66,6 +72,7 @@ class RedirectFallbackMiddleware(MiddlewareMixin):
                 slashed_full_path = full_path[:path_len] + '/' + full_path[path_len:]
 
                 if redirect['old_path'] == slashed_full_path:
+                    self.increment_redirect(redirect['id'])
                     if redirect['new_path'].startswith('http'):
                         return http.HttpResponsePermanentRedirect(redirect['new_path'])
                     else:
@@ -85,6 +92,7 @@ class RedirectFallbackMiddleware(MiddlewareMixin):
                 continue
 
             if re.match(redirect['old_path'], full_path):
+                self.increment_redirect(redirect['id'])
                 # Convert $1 into \1 (otherwise users would have to enter \1 via the admin
                 # which would have to be escaped)
                 new_path = redirect['new_path'].replace('$', '\\')
