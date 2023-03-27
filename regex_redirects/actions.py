@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import csv
 
 from django.http import HttpResponse
-from django.utils import six
+import six
 
 
 # Admin action for a generic "CSV Export"
