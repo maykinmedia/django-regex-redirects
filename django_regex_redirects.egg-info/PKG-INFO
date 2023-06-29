@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: django-regex-redirects
+Version: 0.4.0
+Summary: Django redirects, with regular expressions
+Home-page: https://github.com/maykinmedia/django-regex-redirects
+Author: Alex de Landgraaf
+Author-email: alex@maykinmedia.nl
+License: BSD licence, see LICENCE.txt
+License-File: LICENSE
