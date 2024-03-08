@@ -1,4 +1,4 @@
-django-regex-redirects [![Build Status](https://travis-ci.org/maykinmedia/django-regex-redirects.svg?branch=master)](https://travis-ci.org/maykinmedia/django-regex-redirects)
+django-regex-redirects
 ======================
 
 Django redirects, with regular expressions. It is a modified version of django.contrib.redirects.
@@ -10,34 +10,30 @@ Features
  * Configurable via the admin
  * Redirects are exportable as .csv
  
-https://pypi.python.org/pypi/django-regex-redirects
+https://pypi.org/pypi/django-regex-redirects
 
 Install
 =======
 
-```pip install django-regex-redirects``` or ```python setup.py install```
+`pip install django-regex-redirects`
 
-Add regex_redirects to your INSTALLED_APPS:
+Add `regex_redirects` to your `INSTALLED_APPS`:
 
-```
+```python
 INSTALLED_APPS = (
   ...
-  'regex_redirects',
+  "regex_redirects",
   ...
 )
 ```
 
-Add the middleware to your MIDDLEWARE:
+Add the middleware to your `MIDDLEWARE`:
 
-```
+```python
 MIDDLEWARE = [
-  'regex_redirects.middleware.RedirectFallbackMiddleware'
+  "regex_redirects.middleware.RedirectFallbackMiddleware"
   ...
 ]
 ```
 
-Run manage.py migrate and you're good to go!
-
-
-
-
+Run `manage.py migrate` and you're good to go!
