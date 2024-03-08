@@ -52,7 +52,7 @@ class RegexRedirectTests(TestCase):
 
     def test_regular_expression(self):
         redirect = Redirect.objects.create(
-            old_path="/news/index/(\d+)/(.*)/",
+            old_path=r"/news/index/(\d+)/(.*)/",
             new_path="/my/news/$2/",
             regular_expression=True,
         )

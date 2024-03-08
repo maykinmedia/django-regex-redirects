@@ -26,7 +26,6 @@ def export_as_csv_action(
         opts = modeladmin.model._meta
         field_names = set([field.name for field in opts.fields])
         if fields:
-            fieldset = set(fields)
             field_names = fields
         elif exclude:
             excludeset = set(exclude)
