@@ -1,11 +1,9 @@
-from __future__ import unicode_literals
-
 import re
 
 from django import http
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.core.cache import cache
+from django.core.exceptions import ImproperlyConfigured
 
 from .models import Redirect
 

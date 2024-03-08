@@ -1,14 +1,12 @@
-from __future__ import unicode_literals
-
-from unittest.case import skipUnless
-
-from django.conf import settings
+from django.core.cache import cache
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.core.cache import cache
 
+from .middleware import (
+    DJANGO_REGEX_REDIRECTS_CACHE_KEY,
+    DJANGO_REGEX_REDIRECTS_CACHE_REGEX_KEY,
+)
 from .models import Redirect
-from .middleware import DJANGO_REGEX_REDIRECTS_CACHE_KEY, DJANGO_REGEX_REDIRECTS_CACHE_REGEX_KEY
 
 
 class RegexRedirectTests(TestCase):
