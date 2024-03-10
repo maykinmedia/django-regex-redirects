@@ -1,23 +1,24 @@
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
     }
 }
 
-ALLOWED_HOSTS = ['example.com',]
+ALLOWED_HOSTS = [
+    "example.com",
+]
 
 INSTALLED_APPS = [
-    'django.contrib.sites',
-    'regex_redirects',
+    "django.contrib.sites",
+    "regex_redirects",
 ]
 
 SECRET_KEY = "notimportant"
 
 APPEND_SLASH = False
 
-MIDDLEWARE = ['regex_redirects.middleware.RedirectFallbackMiddleware']
+MIDDLEWARE = ["regex_redirects.middleware.RedirectFallbackMiddleware"]
 
 SITE_ID = 1
 
