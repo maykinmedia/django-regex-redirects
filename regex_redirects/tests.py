@@ -22,7 +22,9 @@ class RegexRedirectTests(TestCase):
     def test_redirect(self):
         redirect = Redirect.objects.create(old_path="/initial", new_path="/new_target")
         self.assertEqual(redirect.nr_times_visited, 0)
-        response = self.client.get("/initial")
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            response = self.client.get("/initial")
+        self.assertEqual(len(callbacks), 1)
         self.assertRedirects(
             response, "/new_target", status_code=301, target_status_code=404
         )
@@ -35,7 +37,9 @@ class RegexRedirectTests(TestCase):
             old_path="/initial/", new_path="/new_target/"
         )
         self.assertEqual(redirect.nr_times_visited, 0)
-        response = self.client.get("/initial")
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            response = self.client.get("/initial")
+        self.assertEqual(len(callbacks), 1)
         self.assertRedirects(
             response, "/new_target/", status_code=301, target_status_code=404
         )
@@ -51,12 +55,14 @@ class RegexRedirectTests(TestCase):
         )
 
     def test_regular_expression(self):
-        redirect = Redirect.objects.create(
+        Redirect.objects.create(
             old_path=r"/news/index/(\d+)/(.*)/",
             new_path="/my/news/$2/",
             regular_expression=True,
         )
-        response = self.client.get("/news/index/12345/foobar/")
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            response = self.client.get("/news/index/12345/foobar/")
+        self.assertEqual(len(callbacks), 1)
         self.assertRedirects(
             response, "/my/news/foobar/", status_code=301, target_status_code=404
         )
