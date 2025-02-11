@@ -22,7 +22,7 @@ MIDDLEWARE = ["regex_redirects.middleware.RedirectFallbackMiddleware"]
 
 SITE_ID = 1
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django seems to require a ROOT_URLCONF.
 ROOT_URLCONF = __name__

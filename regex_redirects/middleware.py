@@ -1,5 +1,5 @@
-import re
 import logging
+import re
 
 from django import http
 from django.conf import settings
@@ -8,9 +8,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.db.models.expressions import F
 
+from .models import Redirect
+
 logger = logging.getLogger(__name__)
 
-from .models import Redirect
 
 try:
     from django.utils.deprecation import MiddlewareMixin
