@@ -3,7 +3,7 @@ name: Tests and PyPI publishing
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - '*'
   pull_request:
@@ -16,12 +16,16 @@ jobs:
     strategy:
       matrix:
         python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-        django: ["3.2", "4.2"]
+        django: ["3.2", "4.2", "5.2"]
         exclude:
           - python: "3.11"
             django: "3.2"
           - python: "3.12"
             django: "3.2"
+          - python: "3.8"
+            django: "5.2"
+          - python: "3.9"
+            django: "5.2"
 
     steps:
       - uses: actions/checkout@v4
