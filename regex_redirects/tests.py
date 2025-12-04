@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from .middleware import (
     DJANGO_REGEX_REDIRECTS_CACHE_KEY,
@@ -148,4 +150,36 @@ class RegexRedirectTests(TestCase):
             "http://example.com/my/third_project/bar/details",
             status_code=301,
             target_status_code=404,
+        )
+
+
+class RedirectExportAdminActionTest(TestCase):
+
+    def setUp(self):
+
+        self.superuser = User.objects.create_superuser("exporter_man")
+        self.client.force_login(self.superuser)
+
+        self.redirect_1 = Redirect.objects.create(
+            old_path="/initial", new_path="/new_target"
+        )
+        self.redirect_2 = Redirect.objects.create(
+            old_path=r"/news/index/(\d+)/(.*)/",
+            new_path="/my/news/$2/",
+            regular_expression=True,
+        )
+
+        self.url = reverse("admin:regex_redirects_redirect_changelist")
+
+    def test_simple(self):
+        data = {
+            "action": "export_as_csv",
+            "_selected_action": [self.redirect_1.pk, self.redirect_2.pk],
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"), "attachment; filename=redirect.csv"
         )
