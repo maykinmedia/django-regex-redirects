@@ -46,6 +46,9 @@ tests = [
     "black",
     "flake8",
 ]
+release = [
+    "bump-my-version",
+]
 
 [tool.setuptools.packages.find]
 include = ["regex_redirects*"]
@@ -84,3 +87,11 @@ omit = [
 
 [tool.coverage.html]
 directory = "cover"
+
+[tool.bumpversion]
+current_version = "0.7.0"
+
+[[tool.bumpversion.files]]
+filename = "README.rst"
+search = ":Version: {current_version}"
+replace = ":Version: {new_version}"
