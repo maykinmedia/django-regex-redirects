@@ -9,7 +9,7 @@ description = "Django redirects, with regular expressions"
 authors = [
     {name = "Alex de Landgraaf", email = "alex@maykinmedia.nl"}
 ]
-readme = "README.md"
+readme = "README.rst"
 license = {file = "LICENSE"}
 keywords = ["Django", "regex"]
 classifiers = [
