@@ -9,7 +9,7 @@ description = "Django redirects, with regular expressions"
 authors = [
     {name = "Alex de Landgraaf", email = "alex@maykinmedia.nl"}
 ]
-readme = "README.md"
+readme = "README.rst"
 license = {file = "LICENSE"}
 keywords = ["Django", "regex"]
 classifiers = [
@@ -45,6 +45,9 @@ tests = [
     "isort",
     "black",
     "flake8",
+]
+release = [
+    "bump-my-version",
 ]
 
 [tool.setuptools.packages.find]
@@ -84,3 +87,11 @@ omit = [
 
 [tool.coverage.html]
 directory = "cover"
+
+[tool.bumpversion]
+current_version = "0.7.0"
+
+[[tool.bumpversion.files]]
+filename = "README.rst"
+search = ":Version: {current_version}"
+replace = ":Version: {new_version}"
