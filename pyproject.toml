@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-regex-redirects"
-version = "0.7.0"
+version = "0.7.1"
 description = "Django redirects, with regular expressions"
 authors = [
     {name = "Alex de Landgraaf", email = "alex@maykinmedia.nl"}
@@ -90,7 +90,7 @@ omit = [
 directory = "cover"
 
 [tool.bumpversion]
-current_version = "0.7.0"
+current_version = "0.7.1"
 
 [[tool.bumpversion.files]]
 filename = "README.rst"
