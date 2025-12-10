@@ -1,6 +1,6 @@
 django-regex-redirects
 ======================
-:Version: 0.7.0
+:Version: 0.7.1
 :Source: https://github.com/maykinmedia/django-regex-redirects
 :Keywords: Django, regex
 :PythonVersion: 3.8

@@ -2,6 +2,16 @@
 Changelog
 =========
 
+
+0.7.1 (2025-12-10)
+==================
+
+* Fix pypi CI job
+* Add bump-my-version
+* Add README.rst
+* Replace README.md with README.rst
+* Add CHANGELOG.rst until to version 0.0.9
+
 0.7.0 (2025-12-05)
 ==================
 
