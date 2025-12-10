@@ -38,6 +38,7 @@ dependencies = [
 Homepage = "https://github.com/maykinmedia/django-regex-redirects"
 "Bug Tracker" = "https://github.com/maykinmedia/django-regex-redirects/issues"
 "Source Code" = "https://github.com/maykinmedia/django-regex-redirects"
+Changelog = "https://github.com/maykinmedia/django-regex-redirects/blob/master/CHANGELOG.rst"
 
 [project.optional-dependencies]
 tests = [
